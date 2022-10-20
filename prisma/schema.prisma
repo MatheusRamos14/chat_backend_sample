@@ -19,6 +19,8 @@ model User {
   createdAt   DateTime          @default(now())
   connections UsersConnection[]
   Message     Message[]
+
+  @@map("user")
 }
 
 model UsersConnection {
@@ -26,6 +28,8 @@ model UsersConnection {
   users     User[]
   chat      Chat?
   createdAt DateTime @default(now())
+
+  @@map("usersConnection")
 }
 
 model Chat {
@@ -34,6 +38,8 @@ model Chat {
   connection    UsersConnection @relation(fields: [connection_id], references: [id])
   Message       Message[]
   createdAt     DateTime        @default(now())
+
+  @@map("chat")
 }
 
 model Message {
@@ -44,4 +50,6 @@ model Message {
   author    User     @relation(fields: [author_id], references: [id])
   content   String
   sended_at DateTime @default(now())
+
+  @@map("message")
 }
