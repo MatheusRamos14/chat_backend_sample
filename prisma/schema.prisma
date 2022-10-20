@@ -24,13 +24,13 @@ model User {
 model UsersConnection {
   id        String   @id @default(uuid())
   users     User[]
-  Chat      Chat[]
+  chat      Chat?
   createdAt DateTime @default(now())
 }
 
 model Chat {
   id            String          @id @default(uuid())
-  connection_id String
+  connection_id String          @unique
   connection    UsersConnection @relation(fields: [connection_id], references: [id])
   Message       Message[]
   createdAt     DateTime        @default(now())
