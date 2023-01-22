@@ -1,12 +1,15 @@
 import express from 'express';
 
 import { router } from './routes/index.routes';
+import { Sockets } from './sockets';
 
 class Server {
-    private server;
+    private server;    
+    private sockets;
 
     constructor() {
         this.server = express();
+        this.sockets = new Sockets();
 
         this.configureServer();
         this.setRoutes();

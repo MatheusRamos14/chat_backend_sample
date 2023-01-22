@@ -12,7 +12,7 @@ const router = Router();
 router.use('/session', sessionRouter);
 
 router.use(authMiddleware);
-router.use('/chats', chatsRouter)
+router.use('/chats', chatsRouter);
 router.use('/connections', connectionsRouter);
 router.use('/messages', messagesRouter);
 
