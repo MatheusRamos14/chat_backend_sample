@@ -44,6 +44,7 @@ class MessagesController {
 
         const chatMessages = await prisma.message.findMany({
             where: { chat_id },
+            orderBy: { sended_at: 'desc' },
             skip: offset,
             take: Number(limit)
         })

@@ -5,5 +5,6 @@ const chatsRouter = Router();
 const chatsController = new ChatsController();
 
 chatsRouter.get('/fetch', chatsController.handleFetchChats);
+chatsRouter.patch('/readAllmessages/:chat_id', chatsController.handleReadMessages);
 
 export { chatsRouter };

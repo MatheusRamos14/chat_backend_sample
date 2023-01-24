@@ -18,9 +18,9 @@ model User {
   active      Boolean           @default(true)
   createdAt   DateTime          @default(now())
   connections UsersConnection[]
-  Message     Message[]
+  messages    Message[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model UsersConnection {
@@ -29,27 +29,28 @@ model UsersConnection {
   chat      Chat?
   createdAt DateTime @default(now())
 
-  @@map("usersConnection")
+  @@map("usersConnections")
 }
 
 model Chat {
   id            String          @id @default(uuid())
   connection_id String          @unique
   connection    UsersConnection @relation(fields: [connection_id], references: [id])
-  Message       Message[]
+  messages      Message[]
   createdAt     DateTime        @default(now())
 
-  @@map("chat")
+  @@map("chats")
 }
 
 model Message {
-  id        String   @id @default(uuid())
-  chat_id   String
-  chat      Chat     @relation(fields: [chat_id], references: [id])
-  author_id String
-  author    User     @relation(fields: [author_id], references: [id])
-  content   String
-  sended_at DateTime @default(now())
+  id          String   @id @default(uuid())
+  chat_id     String
+  chat        Chat     @relation(fields: [chat_id], references: [id])
+  author_id   String
+  author      User     @relation(fields: [author_id], references: [id])
+  content     String
+  alreadyRead Boolean  @default(false)
+  sended_at   DateTime @default(now())
 
-  @@map("message")
+  @@map("messages")
 }
