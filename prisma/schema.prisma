@@ -10,15 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model UserSocket {
+  user_socket_id String @id @default(uuid())
+
+  socket_id String
+  user_id   String @unique
+
+  user User @relation(fields: [user_id], references: [id])
+}
+
 model User {
   id          String            @id @default(uuid())
   name        String
   email       String            @unique
   password    String            @default("")
   active      Boolean           @default(true)
+  online      Boolean           @default(false)
   createdAt   DateTime          @default(now())
   connections UsersConnection[]
   messages    Message[]
+  UserSocket  UserSocket?
 
   @@map("users")
 }
