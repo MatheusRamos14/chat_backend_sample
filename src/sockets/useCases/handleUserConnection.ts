@@ -1,9 +1,9 @@
 import { Socket } from 'socket.io';
 
-import { handleCreateSocket } from '../../services/handleCreateSocket';
 import { handleUpdateUserConnection } from '../../services/handleUserOnline';
-import { handleUpdateSocket } from '../../services/handleUpdateSocket';
-import { searchUserSocketByUserId } from '../../services/searchUser';
+import { searchUserSocketByUserId } from '../../services/userSocket/searchUserSocket';
+import { createUserSocket } from '../../services/userSocket/createUserSocket';
+import { updateUserSocket } from '../../services/userSocket/updateUserSocket';
 
 type UserID = { user_id: string };
 
@@ -13,11 +13,11 @@ function handleUserConnection(socket: Socket, { user_id }: UserID) {
     searchUserSocketByUserId({ user_id })
         .then(userSocket => {
             if (!userSocket) {
-                handleCreateSocket({ socket_id: socket.id, user_id })
+                createUserSocket({ socket_id: socket.id, user_id })
                     .then(() => { console.log("User socket created!") })
             } else {
                 if (userSocket.socket_id !== socket.id) {
-                    handleUpdateSocket({ socket_id: socket.id, user_id })
+                    updateUserSocket({ socket_id: socket.id, user_id })
                         .then(() => { console.log("User socket updated!") })
                 }
             }

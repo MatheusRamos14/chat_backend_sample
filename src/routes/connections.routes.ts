@@ -5,5 +5,6 @@ const connectionsRouter = Router();
 const connectionController = new ConnectionsController();
 
 connectionsRouter.get('/create/:user_id', connectionController.handleCreateConnection);
+connectionsRouter.get('/listOnlineUsers', connectionController.handleListOnlineUsers);
 
 export { connectionsRouter };

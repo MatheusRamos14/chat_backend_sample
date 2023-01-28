@@ -1,11 +1,11 @@
-import { prisma } from '../databases/prismaClient';
+import { prisma } from '../../databases/prismaClient';
 
 interface ISocket {
     user_id: string;
     socket_id?: string;
 } 
 
-async function handleCreateSocket({ user_id, socket_id }: ISocket) {
+async function createUserSocket({ user_id, socket_id }: ISocket) {
     try {
         await prisma.userSocket.create({
             data: { user_id, socket_id: socket_id! }
@@ -16,4 +16,4 @@ async function handleCreateSocket({ user_id, socket_id }: ISocket) {
     }
 }
 
-export { handleCreateSocket };
+export { createUserSocket };

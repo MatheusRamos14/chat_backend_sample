@@ -14,6 +14,8 @@ Socket.on("connection", connection => {
 
     connection.on("new_connection", data => handleUserConnection(connection, data));
 
+    connection.on("new_message", data => handleUserMessage(connection, data));
+
     connection.on("disconnect", _ => handleUserDisconnection(connection));
 })
 

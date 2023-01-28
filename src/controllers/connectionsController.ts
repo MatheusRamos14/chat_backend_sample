@@ -27,6 +27,14 @@ class ConnectionsController {
 
         return res.json(newConnection);
     }
+
+    async handleListOnlineUsers(req: Request, res: Response) {
+        const usersList = await prisma.user.findMany({            
+            where: { UserSocket: { active: true } }
+        })
+
+        return res.json(usersList);
+    }
 }
 
 export { ConnectionsController }

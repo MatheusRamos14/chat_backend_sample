@@ -1,4 +1,4 @@
-import { prisma } from '../databases/prismaClient';
+import { prisma } from '../../databases/prismaClient';
 
 type ByUserId = { user_id: string; } 
 
