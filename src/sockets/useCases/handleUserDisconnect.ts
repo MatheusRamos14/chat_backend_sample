@@ -7,6 +7,7 @@ import { handleUpdateUserConnection } from '../../services/handleUserOnline';
 function handleUserDisconnection(socket: Socket) {
     searchUserSocketBySocketId({ socket_id: socket.id })
     .then(user => {
+        console.log(user?.socket_id)
         if (!user) throw new Error("User not found by socket id");
 
         console.log("Desconexão", socket.id, "refere-se ao usuário", user.user_id);

@@ -15,6 +15,7 @@ model UserSocket {
 
   socket_id String
   user_id   String @unique
+  active Boolean @default(true)
 
   user User @relation(fields: [user_id], references: [id])
 }

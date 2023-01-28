@@ -7,8 +7,8 @@ interface ISocket {
 
 async function handleUpdateSocket({ user_id, socket_id }: ISocket) {
     try {        
-        await prisma.userSocket.update({
-            data: { socket_id },
+        await prisma.userSocket.updateMany({
+            data: { socket_id, active: true },
             where: { user_id }
         })
     } catch (error) {
