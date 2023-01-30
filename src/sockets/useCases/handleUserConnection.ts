@@ -4,6 +4,7 @@ import { handleUpdateUserConnection } from '../../services/handleUserOnline';
 import { searchUserSocketByUserId } from '../../services/userSocket/searchUserSocket';
 import { createUserSocket } from '../../services/userSocket/createUserSocket';
 import { updateUserSocket } from '../../services/userSocket/updateUserSocket';
+import { fetchChats } from '../../services/fetchChats';
 
 type UserID = { user_id: string };
 
@@ -23,7 +24,15 @@ function handleUserConnection(socket: Socket, { user_id }: UserID) {
             }
 
             handleUpdateUserConnection({ connected: true, user_id })
-                .then(() => { console.log("User updated to online!") })
+                .then(() => {
+                    console.log("User updated to online!")
+                    fetchChats({ user_id })
+                    .then(chats => {
+                        console.log("User chats emmited");
+                        socket.join(chats.map(chat => chat.id));
+                        socket.emit("refresh_response", chats);
+                    })
+                })  
         })
         .catch(_ => { console.log("User not found.") })
 }
